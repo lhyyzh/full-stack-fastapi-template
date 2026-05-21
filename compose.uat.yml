@@ -15,7 +15,7 @@
 
 services:
   db:
-    image: postgres:18
+    image: postgres17.6:latest
     restart: always
     ports:
       - "5432:5432"
@@ -45,13 +45,6 @@ services:
     environment:
       - ADMINER_DESIGN=pepa-linha-dark
 
-  mailcatcher:
-    image: schickling/mailcatcher
-    restart: always
-    ports:
-      - "1080:1080"
-      - "1025:1025"
-
   prestart:
     build:
       context: .
@@ -70,10 +63,10 @@ services:
       - SECRET_KEY=${SECRET_KEY?Variable not set}
       - FIRST_SUPERUSER=${FIRST_SUPERUSER?Variable not set}
       - FIRST_SUPERUSER_PASSWORD=${FIRST_SUPERUSER_PASSWORD?Variable not set}
-      - SMTP_HOST=mailcatcher
+      - SMTP_HOST=
       - SMTP_USER=
       - SMTP_PASSWORD=
-      - EMAILS_FROM_EMAIL=noreply@${DOMAIN:-uat.local}
+      - EMAILS_FROM_EMAIL=
       - POSTGRES_SERVER=db
       - POSTGRES_PORT=${POSTGRES_PORT}
       - POSTGRES_DB=${POSTGRES_DB}
@@ -103,10 +96,10 @@ services:
       - SECRET_KEY=${SECRET_KEY?Variable not set}
       - FIRST_SUPERUSER=${FIRST_SUPERUSER?Variable not set}
       - FIRST_SUPERUSER_PASSWORD=${FIRST_SUPERUSER_PASSWORD?Variable not set}
-      - SMTP_HOST=mailcatcher
+      - SMTP_HOST=
       - SMTP_USER=
       - SMTP_PASSWORD=
-      - EMAILS_FROM_EMAIL=noreply@${DOMAIN:-uat.local}
+      - EMAILS_FROM_EMAIL=
       - POSTGRES_SERVER=db
       - POSTGRES_PORT=${POSTGRES_PORT}
       - POSTGRES_DB=${POSTGRES_DB}
